@@ -1,7 +1,8 @@
 interface DatiAnagrafici {
     nome: string;
     cognome: string;
-    indirizzo: string;
+    codiceFiscale : string;
+    email : string;
     // Altri dati anagrafici necessari
 }
 interface DatiOrdine {
@@ -9,11 +10,16 @@ interface DatiOrdine {
     // Altri dati dell'ordine necessari
   }
   
-export function newOrder(datiAnagrafici: DatiAnagrafici): DatiOrdine {
+function newOrder(datiAnagrafici : DatiAnagrafici) {
     
-  if (!datiAnagrafici.nome || !datiAnagrafici.cognome || !datiAnagrafici.indirizzo) {
+  if (!datiAnagrafici.nome || !datiAnagrafici.cognome || !datiAnagrafici.codiceFiscale || !datiAnagrafici.email) {
     throw new Error('Dati anagrafici incompleti');
   }
+
+  if (datiAnagrafici.nome.length > 40) {
+    throw new Error('Troppi caratteri sul nome');
+  }
+  
     // Simuliamo la generazione di un numero di ordine univoco
     const numeroOrdine = Math.floor(Math.random() * 1000) + 1;
   
@@ -25,15 +31,5 @@ export function newOrder(datiAnagrafici: DatiAnagrafici): DatiOrdine {
   
     return datiOrdine;
   }
-  
-  // Esempio di utilizzo della funzione
-export const datiAnagraficiCliente: DatiAnagrafici = {
-    nome: "Mario",
-    cognome: "Rossi",
-    indirizzo: "Via Example 123",
-    // Altri dati anagrafici
-  };
-  
-export const nuovoOrdineCliente: DatiOrdine = newOrder(datiAnagraficiCliente);
-  console.log(newOrder);
-  
+
+module.exports = { newOrder };
