@@ -1,7 +1,7 @@
 import { Ordine } from "./newOrder";
 import { TaglioGiftcard, TipologiaGiftcard } from "./types";
 
-function addGiftcard(ordine: Ordine, tipologia: TipologiaGiftcard, taglio: TaglioGiftcard, quantita: number, prezzo: number): Ordine {
+export function addGiftcard(ordine: Ordine, tipologia: TipologiaGiftcard, taglio: TaglioGiftcard, quantita: number): Ordine {
     // Verifica dati anagrafici
     if (!ordine.datiAnagrafici.codiceFiscale || !ordine.datiAnagrafici.nome || !ordine.datiAnagrafici.cognome || !ordine.datiAnagrafici.email) {
       throw new Error('Dati anagrafici incompleti');
@@ -22,7 +22,9 @@ function addGiftcard(ordine: Ordine, tipologia: TipologiaGiftcard, taglio: Tagli
       ordine.giftcards[giftcardIndex].quantita += quantita;
     } else {
       // Aggiungi una nuova giftcard all'ordine
-      ordine.giftcards.push({ tipologia, taglio, quantita, prezzo });
+      ordine.giftcards.push({
+          tipologia, taglio, quantita,
+      });
     }
   
     return ordine;
@@ -39,5 +41,5 @@ const ordineIniziale: Ordine = {
   giftcards: [],
 };
 
-const nuovoOrdine = addGiftcard(ordineIniziale, 'digitale', 20, 2, 10);
+const nuovoOrdine = addGiftcard(ordineIniziale, 'digitale', 20, 2);
 console.log(nuovoOrdine);

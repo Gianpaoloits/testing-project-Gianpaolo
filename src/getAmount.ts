@@ -5,7 +5,7 @@ import { TotaleOrdini } from "./types";
   
 export function calcolaTotali(ordine: Ordine): TotaleOrdini {
     // Calcola l'imponibile sommando i prezzi delle giftcard
-    const imponibile = ordine.giftcards.reduce((acc, giftcard) => acc + (giftcard.prezzo * giftcard.quantita), 0);
+    const imponibile = ordine.giftcards.reduce((acc, giftcard) => acc + (giftcard.taglio * giftcard.quantita), 0);
   
     // Calcola l'IVA al 22%
     const iva = imponibile * 0.22;
@@ -29,8 +29,8 @@ export function calcolaTotali(ordine: Ordine): TotaleOrdini {
       email: 'mario.rossi@example.com',
     },
     giftcards: [
-      { tipologia: 'digitale', taglio: 20, quantita: 2, prezzo: 10 },
-      { tipologia: 'cartacea', taglio: 50, quantita: 1, prezzo: 25 },
+      { tipologia: 'digitale', taglio: 20, quantita: 2},
+      { tipologia: 'cartacea', taglio: 50, quantita: 1},
     ],
   };
   

@@ -5,7 +5,6 @@ export interface Giftcard {
     tipologia: TipologiaGiftcard;
     taglio: TaglioGiftcard;
     quantita: number;
-    prezzo: number;
   }
 
   export interface DatiAnagrafici {
