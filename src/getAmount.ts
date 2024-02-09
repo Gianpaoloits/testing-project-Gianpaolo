@@ -3,7 +3,7 @@ import { TotaleOrdini } from "./types";
 
 
   
-export function calcolaTotali(ordine: Ordine): TotaleOrdini {
+export function getAmount(ordine: Ordine): TotaleOrdini {
     // Calcola l'imponibile sommando i prezzi delle giftcard
     const imponibile = ordine.giftcards.reduce((acc, giftcard) => acc + (giftcard.taglio * giftcard.quantita), 0);
   
@@ -34,5 +34,5 @@ export function calcolaTotali(ordine: Ordine): TotaleOrdini {
     ],
   };
   
-  const totali = calcolaTotali(ordineEsempio);
+  const totali = getAmount(ordineEsempio);
   console.log(totali);
