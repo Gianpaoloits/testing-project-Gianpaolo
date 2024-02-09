@@ -1,30 +1,38 @@
-export interface TotaliGiftCard {
-    imponibile: number;
-    iva: number;
-    totaleDaPagare: number;
-  }
+import { Ordine } from "./newOrder";
+import { TotaleOrdini } from "./types";
+
+
   
-export function getAmount(): TotaliGiftCard {
-    // Simuliamo un importo totale delle giftcard
-    const importoTotaleGiftCard = 100; // Da sostituire con il calcolo reale
+export function calcolaTotali(ordine: Ordine): TotaleOrdini {
+    // Calcola l'imponibile sommando i prezzi delle giftcard
+    const imponibile = ordine.giftcards.reduce((acc, giftcard) => acc + (giftcard.prezzo * giftcard.quantita), 0);
   
-    // Calcoliamo l'IVA al 22%
-    const iva = importoTotaleGiftCard * 0.22;
+    // Calcola l'IVA al 22%
+    const iva = imponibile * 0.22;
   
-    // Calcoliamo il totale da pagare (imponibile + IVA)
-    const totaleDaPagare = importoTotaleGiftCard + iva;
+    // Calcola il totale da pagare
+    const totaleDaPagare = imponibile + iva;
   
-    // Creiamo l'oggetto con i totali
-    const totali: TotaliGiftCard = {
-      imponibile: importoTotaleGiftCard,
+    return {
+      imponibile,
       iva,
       totaleDaPagare,
     };
-  
-    return totali;
   }
   
-  // Esempio di utilizzo della funzione
-export const totaliGiftCard: TotaliGiftCard = getAmount();
-  console.log(totaliGiftCard);
+  // Esempio di utilizzo
+  const ordineEsempio: Ordine = {
+    datiAnagrafici: {
+      codiceFiscale: 'RSSMRA80A01H501Z',
+      nome: 'Mario',
+      cognome: 'Rossi',
+      email: 'mario.rossi@example.com',
+    },
+    giftcards: [
+      { tipologia: 'digitale', taglio: 20, quantita: 2, prezzo: 10 },
+      { tipologia: 'cartacea', taglio: 50, quantita: 1, prezzo: 25 },
+    ],
+  };
   
+  const totali = calcolaTotali(ordineEsempio);
+  console.log(totali);
